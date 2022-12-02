@@ -28,7 +28,7 @@ First We will be importing modules into the program and giving default values fo
                
                
                
-Secondly We will create a window screen for the game where we will create the head of the snake and food for the snake in the game and displaying the scores at the header of the game
+#Secondly We will create a window screen for the game where we will create the head of the snake and food for the snake in the game and displaying the scores at the header of the game
 
 # Creating a window screen
 wn = turtle.Screen()
@@ -74,7 +74,7 @@ pen.write("Score : 0 High Score : 0", align="center",
 
 
 
-Thridly,we will be validating the key for the snake’s movements. By clicking the keywords normally used for gaming ‘w’, ‘a’, ‘s’ and ‘d’, we can operate the snake’s movements around the screen.
+#Thridly,we will be validating the key for the snake’s movements. By clicking the keywords normally used for gaming ‘w’, ‘a’, ‘s’ and ‘d’, we can operate the snake’s movements around the screen.
 
 
 # assigning key directions

@@ -28,7 +28,7 @@ First We will be importing modules into the program and giving default values fo
                
                
                
-#Secondly We will create a window screen for the game where we will create the head of the snake and food for the snake in the game and displaying the scores at the header of the game
+Secondly We will create a window screen for the game where we will create the head of the snake and food for the snake in the game and displaying the scores at the header of the game
 
 # Creating a window screen
 wn = turtle.Screen()
@@ -74,7 +74,7 @@ pen.write("Score : 0 High Score : 0", align="center",
 
 
 
-#Thridly,we will be validating the key for the snake’s movements. By clicking the keywords normally used for gaming ‘w’, ‘a’, ‘s’ and ‘d’, we can operate the snake’s movements around the screen.
+Thridly,we will be validating the key for the snake’s movements. By clicking the keywords normally used for gaming ‘w’, ‘a’, ‘s’ and ‘d’, we can operate the snake’s movements around the screen.
 
 
 # assigning key directions
@@ -124,6 +124,87 @@ wn.onkeypress(goright, "d")
 
 
 
+Now, lastly, we will create the gameplay where the following will be happening:
+
+The snake will grow its body when the snake eats the fruits.
+Giving color to the snake’s tail.
+After the fruit is eaten, the score will be counted.
+Checking for the snake’s head collisions with the body or the wall of the window screen.
+Restarting the game automatically from the start after the collision.
+The new shape and color of the fruit will be introduced every time the window is restarted.
+The score will be returned to zero and a high score will be retained until the window is not closed.
+
+
+
+
+
+segments = []
+
+# Main Gameplay
+while True:
+	wn.update()
+	if head.xcor() > 290 or head.xcor() < -290 or head.ycor() > 290 or head.ycor() < -290:
+		time.sleep(1)
+		head.goto(0, 0)
+		head.direction = "Stop"
+		colors = random.choice(['red', 'blue', 'green'])
+		shapes = random.choice(['square', 'circle'])
+		for segment in segments:
+			segment.goto(1000, 1000)
+		segments.clear()
+		score = 0
+		delay = 0.1
+		pen.clear()
+		pen.write("Score : {} High Score : {} ".format(
+			score, high_score), align="center", font=("candara", 24, "bold"))
+	if head.distance(food) < 20:
+		x = random.randint(-270, 270)
+		y = random.randint(-270, 270)
+		food.goto(x, y)
+
+		# Adding segment
+		new_segment = turtle.Turtle()
+		new_segment.speed(0)
+		new_segment.shape("square")
+		new_segment.color("orange") # tail colour
+		new_segment.penup()
+		segments.append(new_segment)
+		delay -= 0.001
+		score += 10
+		if score > high_score:
+			high_score = score
+		pen.clear()
+		pen.write("Score : {} High Score : {} ".format(
+			score, high_score), align="center", font=("candara", 24, "bold"))
+	# Checking for head collisions with body segments
+	for index in range(len(segments)-1, 0, -1):
+		x = segments[index-1].xcor()
+		y = segments[index-1].ycor()
+		segments[index].goto(x, y)
+	if len(segments) > 0:
+		x = head.xcor()
+		y = head.ycor()
+		segments[0].goto(x, y)
+	move()
+	for segment in segments:
+		if segment.distance(head) < 20:
+			time.sleep(1)
+			head.goto(0, 0)
+			head.direction = "stop"
+			colors = random.choice(['red', 'blue', 'green'])
+			shapes = random.choice(['square', 'circle'])
+			for segment in segments:
+				segment.goto(1000, 1000)
+			segment.clear()
+
+			score = 0
+			delay = 0.1
+			pen.clear()
+			pen.write("Score : {} High Score : {} ".format(
+				score, high_score), align="center", font=("candara", 24, "bold"))
+	time.sleep(delay)
+
+wn.mainloop()
 
 
 
